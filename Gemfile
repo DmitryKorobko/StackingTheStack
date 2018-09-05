@@ -63,6 +63,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'database_cleaner'
 gem 'devise'
 gem 'geckodriver-helper'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'launchy'
 gem 'rails-controller-testing'
 gem 'selenium-webdriver', '>= 3.14.0'

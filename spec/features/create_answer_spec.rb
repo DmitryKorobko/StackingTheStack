@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'features_helper'
 
 feature 'User answer', %(
   In order to exchange my knowledges
@@ -19,9 +19,5 @@ feature 'User answer', %(
     within '.answers' do
       expect(page).to have_content 'My answer'
     end
-  end
-
-  scenario 'Non-authenticated user creates answer' do
-
   end
 end
