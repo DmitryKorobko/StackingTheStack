@@ -67,12 +67,14 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'launchy'
 gem 'rails-controller-testing'
-gem 'selenium-webdriver', '>= 3.14.0'
 gem 'slim-rails'
+gem 'therubyracer'
+gem 'twitter-bootstrap-rails'
 
 group :test, :development do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'capybara-webkit'
 end
 
 group :test do
