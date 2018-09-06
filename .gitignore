@@ -32,3 +32,8 @@
 .idea/*
 
 /config/database.yml
+
+/public/system
+/public/tmp
+/public/uploads
+/public/spec
