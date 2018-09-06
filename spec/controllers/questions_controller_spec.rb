@@ -39,6 +39,10 @@ RSpec.describe QuestionsController, type: :controller do
     before { get :new }
 
     it 'assigns a new Question @question' do
+      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
+    end
+
+    it 'builds new attachment for question' do
       expect(assigns(:question)).to be_a_new(Question)
     end
 
