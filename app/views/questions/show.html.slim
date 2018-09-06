@@ -18,3 +18,5 @@ ul
       = a.label :file
       = a.file_field :file
   = f.submit 'Create'
+
+= subscribe_to "/questions/#{@question.id}/answers"

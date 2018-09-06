@@ -68,10 +68,12 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'launchy'
 gem 'nested_form'
+gem 'private_pub'
 gem 'rails-controller-testing'
 gem 'remotipart'
 gem 'slim-rails'
 gem 'therubyracer'
+gem 'thin'
 gem 'twitter-bootstrap-rails'
 
 group :test, :development do
