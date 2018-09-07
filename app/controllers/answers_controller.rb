@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create]
-  before_action :load_answer, only: [:update]
+  before_action :load_question, only: [:create, :destroy]
+  before_action :load_answer, only: [:update, :destroy]
 
   def create
     @answer = @question.answers.create(answer_params)
@@ -21,6 +21,11 @@ class AnswersController < ApplicationController
   def update
     @answer.update(answer_params)
     @question = @answer.question
+  end
+
+  def destroy
+    @answer.destroy
+    redirect_to question_path(@question)
   end
 
   private
