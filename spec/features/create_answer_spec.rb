@@ -29,4 +29,9 @@ feature 'User answer', %(
 
     expect(page).to have_content "Body can't be blank"
   end
+
+  scenario 'Non-authenticated user try creates answer', js: true do
+    visit question_path(question)
+    expect(page).to have_content 'Only authenticated users have opportunity to creates answers.'
+  end
 end
