@@ -6,8 +6,9 @@ feature 'Answer editing', %(
   I want to be able to to edit my answer
 ) do
   given(:user) { create(:user) }
-  given!(:question) { create(:question) }
-  given!(:answer) { create(:answer, question: question) }
+  given(:user_2) { create(:user) }
+  given!(:question) { create(:question, user: user) }
+  given!(:answer) { create(:answer, question: question, user: user) }
 
   scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
@@ -16,12 +17,10 @@ feature 'Answer editing', %(
   end
 
   describe 'Authenticated user' do
-    before do
-      sign_in(user)
-      visit question_path(question)
-    end
 
     scenario 'try to edit his answer', js: true do
+      sign_in(user)
+      visit question_path(question)
       click_on 'Edit'
       within '.answers' do
         fill_in 'Answer', with: 'Edited answer'
@@ -33,11 +32,18 @@ feature 'Answer editing', %(
     end
 
     scenario 'sees link to Edit' do
+      sign_in(user)
+      visit question_path(question)
       within '.answers' do
         expect(page).to have_link'Edit'
       end
     end
 
-    scenario 'try to edit answer of other user'
+    scenario 'try to edit answer of other user' do
+      sign_in(user_2)
+      visit question_path(question)
+
+      expect(page).to_not have_link'Edit'
+    end
   end
 end

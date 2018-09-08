@@ -9,6 +9,7 @@ ul
   = render 'answers'
 - if user_signed_in?
   = form_for [@question, @answer], remote: true do |f|
+    = f.hidden_field :user_id, value: current_user.id
     = f.label :body, 'Your answer'
     .answer-errors
     = f.text_area :body
