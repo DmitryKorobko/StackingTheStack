@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  sign_in_user
+
   let(:user) { create(:user) }
   let!(:question) { create(:question, user: user) }
 
@@ -30,7 +32,9 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #update' do
+
     let(:answer) { create(:answer, question: question, user: user) }
+
     it 'assigns the requested answer to @answer' do
       patch :update, params: { id: answer, answer: attributes_for(:answer, user_id: user), question_id: question }, format: :js
       expect(assigns(:answer)).to eq answer
