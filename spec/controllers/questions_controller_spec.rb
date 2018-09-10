@@ -148,4 +148,23 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to questions_path
     end
   end
+
+  describe 'GET #favorite' do
+    before { get :show, params: { id: question.id } }
+
+    let(:answer) { create(:answer, question: question, user: user) }
+
+    sign_in_user
+
+    it 'sets answer as questions favorite' do
+      get :favorite, params: { id: question.id, favorite_answer: answer.id }
+      question.reload
+      expect(question.favorite_answer).to eq(answer.id)
+    end
+
+    it 'redirects to question show view' do
+      get :favorite, params: { id: question.id, favorite_answer: answer.id }
+      expect(response).to redirect_to question_path
+    end
+  end
 end
