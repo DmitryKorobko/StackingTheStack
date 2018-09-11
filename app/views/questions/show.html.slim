@@ -15,13 +15,13 @@ p= @question.body
     = f.hidden_field :user_id, value: current_user.id
     = f.label :body, 'Your answer'
     .answer-errors
-    = f.text_area :body
+    = f.text_area :body, class: 'form-control'
     p Attachments:
     p
       = f.fields_for :attachments do |a|
         = a.label :file
-        = a.file_field :file
-    = f.submit 'Create'
+        = a.file_field :file, class: 'form-control-file'
+    = f.submit 'Create', class: 'btn primary-button'
 - else
   p Only authenticated users have opportunity to creates answers.
 

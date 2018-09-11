@@ -14,5 +14,5 @@
     p
       = form_for [@question, @favorite_answer], remote: true, html: {id: "edit-answer-#{ @favorite_answer.id }"} do |f|
         = f.label :body, 'Answer'
-        = f.text_area :body
-        = f.submit 'Save'
+        = f.text_area :body, class: 'form-control'
+        = f.submit 'Save', class: 'btn primary-button'
