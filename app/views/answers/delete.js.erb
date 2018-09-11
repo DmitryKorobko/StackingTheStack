@@ -1,0 +1,12 @@
+<% if @answer.errors.present? %>
+    <% @answer.errors.full_messages.each do |message| %>
+        $('.answer-errors').html('<%= j message %>');
+    <% end %>
+<% else %>
+    <% publish_to "/questions/#{@question.id}/answers" do %>
+        $('.answers').html('<%= j render 'questions/answers' %>');
+    <% end %>
+    $('.delete-answer-link').click(function (e) {
+        e.preventDefault();
+    });
+<% end %>
