@@ -10,7 +10,7 @@
     - if answer.user == current_user
       = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
       = ' '
-      = link_to 'Delete', [@question, answer], method: :delete, data: {confirm: 'Are you sure?'}
+      = link_to 'Delete', [@question, answer], method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete-answer-link', remote: true
     - if @question.favorite_answer != answer.id && @question.user == current_user
       = ' '
       = link_to 'Set as favorite', "#{question_path(@question)}/favorite/#{answer.id}"

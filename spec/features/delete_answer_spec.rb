@@ -10,7 +10,7 @@ feature 'Delete answer', %(
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
-  scenario 'Authenticated user deletes his answer' do
+  scenario 'Authenticated user deletes his answer', js: true do
     sign_in(user)
     visit question_path(question)
 
@@ -20,14 +20,14 @@ feature 'Delete answer', %(
     end
   end
 
-  scenario 'Authenticated user try to deletes question of other user' do
+  scenario 'Authenticated user try to deletes question of other user', js: true do
     sign_in(user_2)
     visit question_path(question)
 
     expect(page).to_not have_link 'Delete'
   end
 
-  scenario 'Non-authenticated user try to deletes question' do
+  scenario 'Non-authenticated user try to deletes question', js: true do
     visit question_path(question)
 
     expect(page).to_not have_link 'Delete'
