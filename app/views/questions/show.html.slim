@@ -1,5 +1,9 @@
 h1= @question.title
 p= @question.body
+p
+  - if @question.user == current_user
+    = link_to 'Delete  question', @question, method: :delete, data: {confirm: 'Are you sure?'}
+
 - if @question.attachments.count > 0
   p Question attachments:
   ul

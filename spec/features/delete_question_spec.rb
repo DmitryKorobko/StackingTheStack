@@ -10,30 +10,53 @@ feature 'Create question', %(
   given(:user_2) { create(:user) }
   given!(:question) { create(:question, user: user) }
 
-  before do
-    visit questions_path
+  describe 'From questions list' do
+    before do
+      question.reload
+      visit questions_path
+    end
+
+    scenario 'Authenticated user deletes his question' do
+      sign_in(user)
+
+      expect(page).to have_link 'Delete'
+    end
+
+    scenario 'Authenticated user try to deletes question of other user' do
+      sign_in(user_2)
+
+      expect(page).to_not have_link 'Delete'
+    end
+
+    scenario 'Non-authenticated user try to deletes question' do
+      expect(page).to_not have_link 'Delete'
+    end
   end
 
-  scenario 'Authenticated user deletes his question' do
-    sign_in(user)
+  describe 'From question path' do
+    before do
+      question.reload
+      visit question_path(question)
+    end
 
-    click_on 'Ask question'
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'Text text text'
-    click_on 'Create'
+    scenario 'Authenticated user deletes his question' do
+      sign_in(user)
 
-    visit questions_path
+      visit question_path(question)
 
-    expect(page).to have_link 'Delete'
-  end
+      expect(page).to have_link 'Delete question'
+    end
 
-  scenario 'Authenticated user try to deletes question of other user' do
-    sign_in(user_2)
+    scenario 'Authenticated user try to deletes question of other user' do
+      sign_in(user_2)
 
-    expect(page).to_not have_link 'Delete'
-  end
+      visit question_path(question)
 
-  scenario 'Non-authenticated user try to deletes question' do
-    expect(page).to_not have_link 'Delete'
+      expect(page).to_not have_link 'Delete question'
+    end
+
+    scenario 'Non-authenticated user try to deletes question' do
+      expect(page).to_not have_link 'Delete question'
+    end
   end
 end

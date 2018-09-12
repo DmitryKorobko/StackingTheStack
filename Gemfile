@@ -61,13 +61,13 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'carrierwave'
+gem 'cocoon'
 gem 'database_cleaner'
 gem 'devise'
 gem 'geckodriver-helper'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'launchy'
-gem 'cocoon'
 gem 'private_pub'
 gem 'rails-controller-testing'
 gem 'remotipart'
