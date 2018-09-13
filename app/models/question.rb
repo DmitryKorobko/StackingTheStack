@@ -1,7 +1,7 @@
 class Question < ApplicationRecord
   belongs_to :user
   has_many :answers
-  has_many :attachments, as: :attachmentable
+  has_many :attachments, as: :attachable
 
   validates :title, :body, presence: true
 
