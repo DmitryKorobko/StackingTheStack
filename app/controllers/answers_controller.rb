@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create, :destroy]
+  before_action :load_question, only: [:create, :destroy, :update]
+  before_action :load_favorite, only: [:create, :destroy, :update]
   before_action :load_answer, only: [:update, :destroy]
 
   def create
@@ -40,5 +41,9 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, :user_id, attachments_attributes: [:file, :_destroy])
+  end
+
+  def load_favorite
+    @favorite_answer = @question.favorite_answer.nil? ? nil : @question.answers.find(@question.favorite_answer)
   end
 end

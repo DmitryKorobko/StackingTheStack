@@ -1,3 +1,6 @@
+- unless @favorite_answer.nil?
+  = render 'questions/favorite_answer'
+
 -@question.answers.each do |answer|
   - if answer.persisted? && ((@question.favorite_answer != nil &&answer.id != @question.favorite_answer) || @question.favorite_answer.nil?)
     p= answer.body
