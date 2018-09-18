@@ -26,6 +26,8 @@ p
 
         .links
           = link_to_add_association 'Add file', f, :attachments
+    / - App.cable.subscriptions.create { channel: "QuestionChannel", room: "#{@question.id}" }
+
     = f.submit 'Create', class: 'btn primary-button'
 - else
   p Only authenticated users have opportunity to creates answers.
