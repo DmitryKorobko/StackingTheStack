@@ -1,4 +1,4 @@
-.favorite
+.favorite.answer
   p= @favorite_answer.body
   - if @favorite_answer.attachments.count > 0
     p Attachments:
@@ -9,7 +9,7 @@
     p
       = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: @favorite_answer.id}
       = ' '
-      = link_to 'Delete', [@question, @favorite_answer], method: :delete, data: {confirm: 'Are you sure?'}, class: 'edit-answer-link', remote: true
+      = link_to 'Delete', [@question, @favorite_answer], method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete-answer-link', remote: true
 
     p
       = form_for [@question, @favorite_answer], remote: true, html: {id: "edit-answer-#{ @favorite_answer.id }"} do |f|

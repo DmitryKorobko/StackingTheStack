@@ -3,4 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .edit_answer { display: none; }
-.favorite { background-color: greenyellow; }
+.favorite { background-color: khaki; }
+.answer { border-style: double }
+.edit-answer-link {
+  border-style: groove;
+  background-color: greenyellow;
+  border-color: cyan;
+  color: black;
+}
+.delete-answer-link {
+  border-style: groove;
+  background-color: red;
+  border-color: coral;
+  color: white;
+}
+.favorite-answer-link {
+  border-style: groove;
+  background-color: blue;
+  border-color: blueviolet;
+  color: white;
+}
