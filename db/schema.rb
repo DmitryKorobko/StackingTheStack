@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_13_084202) do
+ActiveRecord::Schema.define(version: 2018_09_18_080936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_ratings", force: :cascade do |t|
+    t.integer "answer_id"
+    t.integer "rating_number", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
@@ -42,6 +49,14 @@ ActiveRecord::Schema.define(version: 2018_09_13_084202) do
     t.integer "user_id"
     t.integer "favorite_answer"
     t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "user_to_answer_ratings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "answer_id"
+    t.boolean "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

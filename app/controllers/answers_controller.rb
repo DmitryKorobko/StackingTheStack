@@ -1,11 +1,12 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create, :destroy, :update]
-  before_action :load_favorite, only: [:create, :destroy, :update]
-  before_action :load_answer, only: [:update, :destroy]
+  before_action :load_question
+  before_action :load_favorite
+  before_action :load_answer, only: [:update, :destroy, :rating_up, :rating_down]
 
   def create
     @answer = @question.answers.create(answer_params)
+    AnswerRating.create(answer_id: @answer.id)
 
     # respond_to do |format|
     #   if @answer.save
@@ -26,6 +27,32 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
+  end
+
+  def rating_up
+    @rating = UserToAnswerRating.where(answer_id: @answer.id, user_id: current_user.id).first_or_initialize
+    @rating.rating = true
+    @rating.save
+
+    @answer_rating = UserToAnswerRating.where(answer_id: @answer.id, rating: true).count - UserToAnswerRating.where(answer_id: @answer.id, rating: false).count
+    @answer.answer_rating.update(rating_number: @answer_rating)
+
+    flash[:notice] = 'Rating is added.'
+
+    redirect_to @question
+  end
+
+  def rating_down
+    @rating = UserToAnswerRating.where(answer_id: @answer.id, user_id: current_user.id).first_or_initialize
+    @rating.rating = false
+    @rating.save
+
+    @answer_rating = UserToAnswerRating.where(answer_id: @answer.id, rating: true).count - UserToAnswerRating.where(answer_id: @answer.id, rating: false).count
+    @answer.answer_rating.update(rating_number: @answer_rating)
+
+    flash[:notice] = 'Rating is added.'
+
+    redirect_to @question
   end
 
   private

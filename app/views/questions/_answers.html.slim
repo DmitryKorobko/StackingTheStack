@@ -11,6 +11,13 @@
         ul
           - answer.attachments.each do |a|
             li= link_to a.file.identifier, a.file.url
+      - unless answer.answer_rating.nil?
+        .rating
+          p= 'Answer rating:'
+          p
+            = link_to ' - ', "#{question_path(@question)}/answers/#{answer.id}/down", class: 'answer-rating-link', id: "up-rating-#{ answer.id }"
+            = answer.answer_rating.rating_number
+            = link_to ' + ', "#{question_path(@question)}/answers/#{answer.id}/up", class: 'answer-rating-link', id: "down-rating-#{ answer.id }"
       p
       - if answer.user == current_user
         = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}

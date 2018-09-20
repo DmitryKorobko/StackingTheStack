@@ -5,6 +5,13 @@
     ul
       - @favorite_answer.attachments.each do |a|
         li= link_to a.file.identifier, a.file.url
+  - unless @favorite_answer.answer_rating.nil?
+    .answer
+      p= 'Answer rating:'
+      p
+        = link_to ' - ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/down", class: 'answer-rating-link', id: "up-rating-#{ @favorite_answer.id }"
+        = @favorite_answer.answer_rating.rating_number
+        = link_to ' + ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/up", class: 'answer-rating-link', id: "down-rating-#{ @favorite_answer.id }"
   - if user_signed_in? && @favorite_answer.user == current_user
     p
       = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: @favorite_answer.id}
