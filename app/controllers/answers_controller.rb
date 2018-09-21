@@ -7,17 +7,6 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.create(answer_params)
     AnswerRating.create(answer_id: @answer.id)
-
-    # respond_to do |format|
-    #   if @answer.save
-    #     format.js do
-    #       PrivatePub.publish_to"/questions/#{@question.id}/answers", answer: @answer.to_json
-    #       render nothing: true
-    #     end
-    #   else
-    #     PrivatePub.publish_to"/questions/#{@question.id}/answers", errors: @answer.errors.full_messages
-    #   end
-    # end
   end
 
   def update
@@ -30,12 +19,7 @@ class AnswersController < ApplicationController
   end
 
   def rating_up
-    @rating = UserToAnswerRating.where(answer_id: @answer.id, user_id: current_user.id).first_or_initialize
-    @rating.rating = true
-    @rating.save
-
-    @answer_rating = UserToAnswerRating.where(answer_id: @answer.id, rating: true).count - UserToAnswerRating.where(answer_id: @answer.id, rating: false).count
-    @answer.answer_rating.update(rating_number: @answer_rating)
+    @answer.answer_rating.update(rating_number: RatingHelper.update_rating(@answer.id, current_user.id, true))
 
     flash[:notice] = 'Rating is added.'
 
@@ -43,12 +27,7 @@ class AnswersController < ApplicationController
   end
 
   def rating_down
-    @rating = UserToAnswerRating.where(answer_id: @answer.id, user_id: current_user.id).first_or_initialize
-    @rating.rating = false
-    @rating.save
-
-    @answer_rating = UserToAnswerRating.where(answer_id: @answer.id, rating: true).count - UserToAnswerRating.where(answer_id: @answer.id, rating: false).count
-    @answer.answer_rating.update(rating_number: @answer_rating)
+    @answer.answer_rating.update(rating_number: RatingHelper.update_rating(@answer.id, current_user.id, false))
 
     flash[:notice] = 'Rating is added.'
 
@@ -70,6 +49,6 @@ class AnswersController < ApplicationController
   end
 
   def load_favorite
-    @favorite_answer = @question.favorite_answer.nil? ? nil : @question.answers.find(@question.favorite_answer)
+    @favorite_answer = @question.answers.find_by(id: @question.favorite_answer&.id)
   end
 end
