@@ -1,15 +1,19 @@
 = form_for @question do |f|
-  = f.hidden_field :user_id, value: current_user.id
-  p
-    = f.label :title
-    = f.text_field :title, class: 'form-control'
-  p
-    = f.label :body
-    = f.text_area :body, class: 'form-control'
-  p Attachments:
-  p
-    = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file, class: 'form-control-file'
+  .nested-fields
+    = f.hidden_field :user_id, value: current_user.id
+    p
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    p
+      = f.label :body
+      = f.text_area :body, class: 'form-control'
+    p Attachments:
+    p
+      #attachments
+        = f.fields_for :attachments do |a|
+          = render 'attachment_fields', f: a
+
+        .links
+          = link_to_add_association 'Add file', f, :attachments
 
   p= f.submit 'Create', class: 'btn primary-button'

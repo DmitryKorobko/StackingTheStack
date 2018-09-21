@@ -24,4 +24,11 @@ feature 'Add files to answer', %(
       expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
     end
   end
+
+  scenario 'User adds many files when creates answer' do
+    click_on 'Add file'
+    within('div#attachments') do
+      expect(page).to have_xpath("./div", count: 2)
+    end
+  end
 end

@@ -1,9 +1,9 @@
 class Question < ApplicationRecord
   belongs_to :user
   has_many :answers
-  has_many :attachments, as: :attachmentable
+  has_many :attachments, as: :attachable
 
   validates :title, :body, presence: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 end

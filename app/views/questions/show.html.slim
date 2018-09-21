@@ -1,5 +1,9 @@
 h1= @question.title
 p= @question.body
+p
+  - if @question.user == current_user
+    = link_to 'Delete  question', @question, method: :delete, data: {confirm: 'Are you sure?'}
+
 - if @question.attachments.count > 0
   p Question attachments:
   ul
@@ -7,8 +11,6 @@ p= @question.body
       li= link_to a.file.identifier, a.file.url
 
 .answers
-  - unless @favorite_answer.nil?
-    = render 'favorite_answer'
   = render 'answers'
 - if user_signed_in?
   = form_for [@question, @answer], remote: true do |f|
@@ -18,11 +20,14 @@ p= @question.body
     = f.text_area :body, class: 'form-control'
     p Attachments:
     p
-      = f.fields_for :attachments do |a|
-        = a.label :file
-        = a.file_field :file, class: 'form-control-file'
+      #attachments
+        = f.fields_for :attachments do |a|
+          = render 'attachment_fields', f: a
+
+        .links
+          = link_to_add_association 'Add file', f, :attachments
+    / - App.cable.subscriptions.create { channel: "QuestionChannel", room: "#{@question.id}" }
+
     = f.submit 'Create', class: 'btn primary-button'
 - else
   p Only authenticated users have opportunity to creates answers.
-
-= subscribe_to "/questions/#{@question.id}/answers"

@@ -1,21 +1,12 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:create, :destroy]
-  before_action :load_answer, only: [:update, :destroy]
+  before_action :load_question
+  before_action :load_favorite
+  before_action :load_answer, only: [:update, :destroy, :rating_up, :rating_down]
 
   def create
     @answer = @question.answers.create(answer_params)
-
-    # respond_to do |format|
-    #   if @answer.save
-    #     format.js do
-    #       PrivatePub.publish_to"/questions/#{@question.id}/answers", answer: @answer.to_json
-    #       render nothing: true
-    #     end
-    #   else
-    #     PrivatePub.publish_to"/questions/#{@question.id}/answers", errors: @answer.errors.full_messages
-    #   end
-    # end
+    AnswerRating.create(answer_id: @answer.id)
   end
 
   def update
@@ -25,7 +16,22 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-    redirect_to question_path(@question)
+  end
+
+  def rating_up
+    @answer.answer_rating.update(rating_number: RatingHelper.update_rating(@answer.id, current_user.id, true))
+
+    flash[:notice] = 'Rating is added.'
+
+    redirect_to @question
+  end
+
+  def rating_down
+    @answer.answer_rating.update(rating_number: RatingHelper.update_rating(@answer.id, current_user.id, false))
+
+    flash[:notice] = 'Rating is added.'
+
+    redirect_to @question
   end
 
   private
@@ -39,6 +45,10 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :user_id, attachments_attributes: [:file])
+    params.require(:answer).permit(:body, :user_id, attachments_attributes: [:file, :_destroy])
+  end
+
+  def load_favorite
+    @favorite_answer = @question.answers.find_by(id: @question.favorite_answer&.id)
   end
 end
