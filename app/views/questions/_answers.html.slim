@@ -4,7 +4,7 @@
 -@question.answers.each do |answer|
   - if answer.persisted? && ((@question.favorite_answer != nil &&answer.id != @question.favorite_answer) || @question.favorite_answer.nil?)
     p
-    .answer
+    .answer.casual
       p= answer.body
       - if answer.attachments.count > 0
         p Attachments:

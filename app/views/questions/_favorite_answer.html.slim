@@ -6,20 +6,34 @@
       - @favorite_answer.attachments.each do |a|
         li= link_to a.file.identifier, a.file.url
   - unless @favorite_answer.answer_rating.nil?
-    .answer
-      p= 'Answer rating:'
-      p
-        = link_to ' - ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/down", class: 'answer-rating-link', id: "up-rating-#{ @favorite_answer.id }"
-        = @favorite_answer.answer_rating.rating_number
-        = link_to ' + ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/up", class: 'answer-rating-link', id: "down-rating-#{ @favorite_answer.id }"
+    p= 'Answer rating:'
+    p
+      = link_to ' - ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/down", class: 'answer-rating-link', id: "up-rating-#{ @favorite_answer.id }"
+      = @favorite_answer.answer_rating.rating_number
+      = link_to ' + ', "#{question_path(@question)}/answers/#{@favorite_answer.id}/up", class: 'answer-rating-link', id: "down-rating-#{ @favorite_answer.id }"
   - if user_signed_in? && @favorite_answer.user == current_user
     p
       = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: @favorite_answer.id}
       = ' '
       = link_to 'Delete', [@question, @favorite_answer], method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete-answer-link', remote: true
 
+    - if @favorite_answer.comments.count > 0
+      p Comments:
+      - @favorite_answer.comments.each do |comment|
+        .comments
+          = comment.label :message
+          = comment.message
+
     p
       = form_for [@question, @favorite_answer], remote: true, html: {id: "edit-answer-#{ @favorite_answer.id }"} do |f|
         = f.label :body, 'Answer'
         = f.text_area :body, class: 'form-control'
         = f.submit 'Save', class: 'btn primary-button'
+
+        / .create-comment
+        /   = f.fields_for :comments do |a|
+        /     = render 'comment_fields', f: a
+        /
+        /   .links
+        /     = link_to_add_association 'Add file', f, :attachments
+

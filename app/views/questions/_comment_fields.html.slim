@@ -1,0 +1,5 @@
+.nested-fields
+  = f.label :message
+  = f.text_area :message, class: 'form-control'
+  / = f.check_box :_destroy
+  / = link_to_remove_association 'Remove comment', f
