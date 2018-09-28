@@ -4,14 +4,18 @@ class AnswersController < ApplicationController
   before_action :load_favorite
   before_action :load_answer, only: [:update, :destroy, :rating_up, :rating_down]
 
+  respond_to :js
+
   def create
     @answer = @question.answers.create(answer_params)
     AnswerRating.create(answer_id: @answer.id)
+    respond_with @answer
   end
 
   def update
     @answer.update(answer_params)
     @question = @answer.question
+    respond_with @answer
   end
 
   def destroy

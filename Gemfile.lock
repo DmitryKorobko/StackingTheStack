@@ -314,6 +314,7 @@ DEPENDENCIES
   rails-controller-testing
   redis
   remotipart
+  responders
   rspec-rails
   sass-rails (~> 5.0)
   shoulda-matchers

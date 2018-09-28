@@ -3,8 +3,12 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :questions do
-    resources :answers
+  concern :commented do
+    resources :comments
+  end
+
+  resources :questions, concerns: :commented, shallow: true do
+    resources :answers, concerns: :commented
   end
 
   root to: 'questions#index'
