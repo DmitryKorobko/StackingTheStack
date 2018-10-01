@@ -6,6 +6,8 @@ class AnswersController < ApplicationController
 
   respond_to :js
 
+  authorize_resource
+
   def create
     @answer = @question.answers.create(answer_params)
     AnswerRating.create(answer_id: @answer.id)
