@@ -8,6 +8,11 @@ class CommentsController < ApplicationController
     respond_with(@comment = @parent.comments.create(comment_params))
   end
 
+  def update
+    @comment.update(comment_params)
+    respond_with @comment
+  end
+
   private
 
   def load_parent
