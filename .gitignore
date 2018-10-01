@@ -32,8 +32,6 @@
 .idea/*
 
 /config/database.yml
-/config/master.key
-/config/credentials.yml.enc
 
 /public/system
 /public/tmp
