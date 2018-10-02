@@ -60,6 +60,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'active_model_serializers'
 gem 'cancancan'
 gem 'carrierwave'
 gem 'cocoon'
@@ -70,6 +71,8 @@ gem 'geckodriver-helper'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'launchy'
+gem 'oj'
+gem 'oj_mimic_json'
 gem 'omniauth'
 gem 'omniauth-facebook'
 # gem 'pundit'

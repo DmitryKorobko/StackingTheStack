@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resource :profiles do
         get :me, on: :collection
       end
+      resource :questions
     end
   end
 
@@ -24,5 +25,4 @@ Rails.application.routes.draw do
   get '/questions/:id/favorite/:favorite_answer' => 'questions#favorite'
   get '/questions/:question_id/answers/:id/up' => 'answers#rating_up'
   get '/questions/:question_id/answers/:id/down' => 'answers#rating_down'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

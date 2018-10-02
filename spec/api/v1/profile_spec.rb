@@ -24,13 +24,13 @@ describe 'Profile API' do
         expect(response).to be_successful
       end
 
-      %w(id email created_at updated_at admin).each do |attr|
+      %w[id email created_at updated_at admin].each do |attr|
         it "contains #{attr}" do
           expect(response.body).to be_json_eql(me.send(attr.to_sym).to_json).at_path(attr)
         end
       end
 
-      %w(password encrypted_password).each do |attr|
+      %w[password encrypted_password].each do |attr|
         it "does not contains #{attr}" do
           expect(response.body).to_not have_json_path(attr)
         end
