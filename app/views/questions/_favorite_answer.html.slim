@@ -15,25 +15,12 @@
     p
       = link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: @favorite_answer.id}
       = ' '
-      = link_to 'Delete', [@question, @favorite_answer], method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete-answer-link', remote: true
-
-    - if @favorite_answer.comments.count > 0
-      p Comments:
-      - @favorite_answer.comments.each do |comment|
-        .comments
-          = comment.label :message
-          = comment.message
+      = link_to 'Delete', @favorite_answer, method: :delete, data: {confirm: 'Are you sure?'}, class: 'delete-answer-link', remote: true
 
     p
-      = form_for [@question, @favorite_answer], remote: true, html: {id: "edit-answer-#{ @favorite_answer.id }"} do |f|
+      = form_for @favorite_answer, remote: true, html: {id: "edit-answer-#{ @favorite_answer.id }"} do |f|
         = f.label :body, 'Answer'
         = f.text_area :body, class: 'form-control'
         = f.submit 'Save', class: 'btn primary-button'
-
-        / .create-comment
-        /   = f.fields_for :comments do |a|
-        /     = render 'comment_fields', f: a
-        /
-        /   .links
-        /     = link_to_add_association 'Add file', f, :attachments
-
+    .comments
+      = render 'comments/list', parent: @favorite_answer

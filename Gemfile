@@ -60,17 +60,26 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'active_model_serializers'
+gem 'cancancan'
 gem 'carrierwave'
 gem 'cocoon'
 gem 'database_cleaner'
 gem 'devise'
+gem 'doorkeeper'
 gem 'geckodriver-helper'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'launchy'
-gem 'redis'
+gem 'oj'
+gem 'oj_mimic_json'
+gem 'omniauth'
+gem 'omniauth-facebook'
+# gem 'pundit'
 gem 'rails-controller-testing'
+gem 'redis'
 gem 'remotipart'
+gem 'responders'
 gem 'slim-rails'
 gem 'therubyracer'
 gem 'thin'
@@ -78,6 +87,7 @@ gem 'twitter-bootstrap-rails'
 
 group :test, :development do
   gem 'factory_bot_rails'
+  gem 'json_spec'
   gem 'rspec-rails'
   gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
 end

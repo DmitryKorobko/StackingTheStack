@@ -1,0 +1,7 @@
+= render parent.comments
+= form_for [parent, parent.comments.build], remote: true do |f|
+  p
+    = f.label :message, 'Comment'
+    = f.text_area :message, class: 'form-control'
+  p
+    = f.submit 'Post comment', class: 'btn primary-button'
