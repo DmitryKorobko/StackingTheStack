@@ -84,6 +84,11 @@ gem 'slim-rails'
 gem 'therubyracer'
 gem 'thin'
 gem 'twitter-bootstrap-rails'
+# gem 'delayed_job_active_record'
+gem 'whenever'
+gem 'sidekiq'
+gem 'sidetiq'
+gem 'sinatra', require: nil
 
 group :test, :development do
   gem 'factory_bot_rails'
