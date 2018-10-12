@@ -10,11 +10,11 @@ class Answer < ApplicationRecord
   accepts_nested_attributes_for :attachments, allow_destroy: true
   accepts_nested_attributes_for :comments, allow_destroy: true
 
-  after_create :calculate_reputation
+  after_create :update_reputation
 
   private
 
-  def calculate_reputation
-    Reputation.delay.calculate(self)
+  def update_reputation
+    CalculateReputationJob.perform_later(self)
   end
 end
