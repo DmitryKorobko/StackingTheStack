@@ -96,6 +96,7 @@ gem 'sidetiq'
 gem 'sinatra', require: nil
 gem 'thinking-sphinx'
 gem 'mysql2', :require => 'thinking_sphinx'
+gem 'redis-rails'
 
 group :test, :development do
   gem 'factory_bot_rails'

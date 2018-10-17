@@ -1,4 +1,7 @@
-= render parent.comments
+- parent.comments.each do |comment|
+  - cache comment do
+    p= comment.message
+
 = form_for [parent, parent.comments.build], remote: true do |f|
   p
     = f.label :message, 'Comment'
