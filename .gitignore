@@ -32,6 +32,8 @@
 .idea/*
 
 /config/database.yml
+/config/*.sphinx.conf
+/db/sphinx
 
 /public/system
 /public/tmp
