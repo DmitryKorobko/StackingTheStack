@@ -89,6 +89,8 @@ gem 'whenever'
 gem 'sidekiq'
 gem 'sidetiq'
 gem 'sinatra', require: nil
+gem 'thinking-sphinx'
+gem 'mysql2', :require => 'thinking_sphinx'
 
 group :test, :development do
   gem 'factory_bot_rails'
